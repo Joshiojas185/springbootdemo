@@ -20,8 +20,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> addNewStudent(@RequestBody Student student) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.addStudent(student));
+    public ResponseEntity<Student> addNewStudent(@RequestBody AddStudent addStudent) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.addStudent(addStudent));
     }
 
     @DeleteMapping("/{id}")
