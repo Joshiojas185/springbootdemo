@@ -8,28 +8,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
 @RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
 
-    @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
+    @GetMapping("/students")
+    public ResponseEntity<List<Student>> getAllStudents(){
         return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
     }
 
-    @PostMapping
-    public ResponseEntity<Student> addNewStudent(@RequestBody AddStudent addStudent) {
+    @PostMapping("/students")
+    public ResponseEntity<Student> addStudent(@RequestBody AddStudent addStudent){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.addStudent(addStudent));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable int id) {
-        boolean removed = studentService.deleteStudent(id);
-        if (removed) {
-            return ResponseEntity.ok("Student with ID " + id + " removed successfully.");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with ID " + id + " not found.");
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Student> updateStudentDetails(@PathVariable int id, @RequestBody AddStudent addStudent){
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.updateStudent(id, addStudent));
     }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable int id){
+        return ResponseEntity.ok(studentService.deleteStudent(id));
+    }
+
+
 }
