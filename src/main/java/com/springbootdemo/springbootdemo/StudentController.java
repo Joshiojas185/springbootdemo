@@ -15,14 +15,13 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<List<Student>> getAllStudents() {
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Student addNewStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    public ResponseEntity<Student> addNewStudent(@RequestBody Student student) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.addStudent(student));
     }
 
     @DeleteMapping("/{id}")
