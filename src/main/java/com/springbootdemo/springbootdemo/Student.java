@@ -1,18 +1,14 @@
 package com.springbootdemo.springbootdemo;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Data
 public class Student {
-
-    public int id;
-    public String name;
-    public String email;
-
+    private int id;
+    private String name;
+    private String email;
 }

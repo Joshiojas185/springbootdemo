@@ -1,31 +1,36 @@
 package com.springbootdemo.springbootdemo;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/students")
 @RequiredArgsConstructor
 public class StudentController {
 
-    private final static List<Student> list = new ArrayList<>();
+    private final StudentService studentService;
 
-    @GetMapping("/students")
-    public List<Student> getAllStudents(){
-        return list;
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 
-    @PostMapping("students")
-    public Student addNewStudent(@RequestBody Student student){
-        list.add(student);
-        return student;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student addNewStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 
-    @DeleteMapping("/students/{id}")
-    public String deleteStudent(@PathVariable int id){
-        list.remove(id);
-        return "Student at id:" + id + "removed successfully";
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable int id) {
+        boolean removed = studentService.deleteStudent(id);
+        if (removed) {
+            return ResponseEntity.ok("Student with ID " + id + " removed successfully.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with ID " + id + " not found.");
     }
 }
