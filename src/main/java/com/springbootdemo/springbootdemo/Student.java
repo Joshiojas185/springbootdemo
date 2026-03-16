@@ -1,15 +1,16 @@
 package com.springbootdemo.springbootdemo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Student {
 
-    public int id;
-    public String name;
-    public String email;
+    private int id;
+    private String name;
+    private String email;
 }
